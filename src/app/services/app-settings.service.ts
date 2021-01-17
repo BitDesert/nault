@@ -136,7 +136,7 @@ export class AppSettingsService {
       } else {
         this.settings.language = this.translate.defaultLang;
       }
-      console.log('No language configured, setting to ' + this.settings.language);
+      console.log('No language configured, setting to: ' + this.settings.language + '. Client language: ' + browserLang);
     }
 
     this.loadServerSettings();
