@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as url from 'url';
+import {TranslateService} from '@ngx-translate/core';
 
 export type WalletStore = 'localStorage'|'none';
 export type PoWSource = 'server'|'clientCPU'|'clientWebGL'|'best';
 export type LedgerConnectionType = 'usb'|'bluetooth';
 
 interface AppSettings {
+  language: string | null;
   displayDenomination: string;
   // displayPrefix: string | null;
   walletStore: string;
@@ -29,6 +31,7 @@ export class AppSettingsService {
   storeKey = `nanovault-appsettings`;
 
   settings: AppSettings = {
+    language: null,
     displayDenomination: 'mnano',
     // displayPrefix: 'xrb',
     walletStore: 'localStorage',
@@ -114,7 +117,9 @@ export class AppSettingsService {
     }
   ];
 
-  constructor() { }
+  constructor(
+    private translate: TranslateService
+  ) { }
 
   loadAppSettings() {
     let settings: AppSettings = this.settings;
@@ -123,6 +128,16 @@ export class AppSettingsService {
       settings = JSON.parse(settingsStore);
     }
     this.settings = Object.assign(this.settings, settings);
+    
+    if (this.settings.language === null) {
+      const browserLang = this.translate.getBrowserLang();
+      if (this.translate.getLangs().includes(browserLang)) {
+        this.settings.language = browserLang;
+      } else {
+        this.settings.language = this.translate.defaultLang;
+      }
+      console.log('No language configured, setting to ' + this.settings.language);
+    }
 
     this.loadServerSettings();
 
@@ -179,6 +194,7 @@ export class AppSettingsService {
   clearAppSettings() {
     localStorage.removeItem(this.storeKey);
     this.settings = {
+      language: 'en',
       displayDenomination: 'mnano',
       // displayPrefix: 'xrb',
       walletStore: 'localStorage',
