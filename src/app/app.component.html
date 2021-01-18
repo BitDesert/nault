@@ -106,7 +106,7 @@
                     </ng-container>
                     <ng-container *ngIf="isConfigured() && (node.status === null)">
                       <div class="spinner-container">
-                        <div uk-spinner="ratio: 0.6;" uk-tooltip title="Attempting to connect to Nano node"></div>
+                        <div uk-spinner="ratio: 0.6;" uk-tooltip [title]="'attempting-to-connect-to-nano-node' | translate"></div>
                       </div>
                     </ng-container>
                   </div>
@@ -166,11 +166,11 @@
                 </div>
                 <div class="status-labels" *ngIf="settings.settings.serverAPI">
                   <div class="label primary uk-text-danger">{{ 'unable-to-connect-to-the-server' | translate }}</div>
-                  <div class="label secondary"><a (click)="retryConnection()">Refresh</a> or <a routerLink="/configure-app">select a different server</a></div>
+                  <div class="label secondary"><a (click)="retryConnection()">{{ 'refresh' | translate }}</a> / <a routerLink="/configure-app">{{ 'select-a-different-server' | translate }}</a></div>
                 </div>
                 <div class="status-labels" *ngIf="!settings.settings.serverAPI">
                   <div class="label primary uk-text-danger">{{ 'wallet-is-in-offline-mode' | translate }}</div>
-                  <div class="label secondary"><a routerLink="/configure-app">Select a server</a> to interact with the network</div>
+                  <div class="label secondary"><a routerLink="/configure-app">{{ 'select-a-server-to-interact-with-the-network' | translate }}</a></div>
                 </div>
               </div>
 
@@ -200,7 +200,7 @@
           <li><a routerLink="/address-book" routerLinkActive="active"><div class="label">{{ 'address-book' | translate }}</div></a></li>
           <li><a routerLink="/qr-scan" routerLinkActive="active"><div class="label">{{ 'scan-qr-code' | translate }}</div></a></li>
           <li class="uk-parent">
-            <a href="#">Settings</a>
+            <a href="#">{{ 'settings' | translate }}</a>
             <ul class="uk-nav-sub">
               <li><a routerLink="/representatives" [queryParams]="" routerLinkActive="active"><div class="label">{{ 'representatives' | translate }}</div></a></li>
               <li><a routerLink="/configure-app" routerLinkActive="active"><div class="label">{{ 'app-settings' | translate }}</div></a></li>
@@ -222,19 +222,19 @@
         <div class="nav-search">
           <form class="uk-search uk-search-default uk-width-1-1">
             <a href="javascript:void(0)" (click)="performSearch()" class="uk-search-icon-flip" uk-search-icon></a>
-            <input class="uk-search-input uk-width-1-1" id="search-input" type="search" placeholder="Search for an account or block hash" [(ngModel)]="searchData" name="searchData" (keyup.enter)="performSearch()">
+            <input class="uk-search-input uk-width-1-1" id="search-input" type="search" [placeholder]="'search-for-an-account-or-block-hash' | translate" [(ngModel)]="searchData" name="searchData" (keyup.enter)="performSearch()">
           </form>
         </div>
 
         <div class="footer uk-margin-remove-top" uk-grid>
           <div class="uk-width-1-1 uk-text-center">
-            <a class="footer-link donation-icon" routerLink="/send" [queryParams]="{ to: donationAccount }" routerLinkActive="active" uk-tooltip title="Contribute to this wallet with a custom donation!"><span uk-icon="icon: heart;"></span></a>
+            <a class="footer-link donation-icon" routerLink="/send" [queryParams]="{ to: donationAccount }" routerLinkActive="active" uk-tooltip [title]="'contribute-to-this-wallet-with-a-custom-donation' | translate"><span uk-icon="icon: heart;"></span></a>
             <a href="https://github.com/Nault/Nault" uk-icon="icon: github-alt" uk-tooltip title="View our GitHub" class="footer-link" target="_blank" rel="noopener noreferrer"></a>
             <a href="https://twitter.com/TheNanoCenter" uk-icon="icon: twitter" uk-tooltip title="Chat with us on Twitter" class="footer-link" target="_blank" rel="noopener noreferrer"></a>
             <a href="https://discord.nanocenter.org" uk-icon="icon: users" uk-tooltip title="Join our community on Discord" class="footer-link" target="_blank" rel="noopener noreferrer"></a>
           </div>
           <div class="attribution uk-width-1-1 uk-text-center">
-            Based on <a href="https://github.com/cronoh/nanovault" target="_blank" rel="noopener noreferrer">NanoVault</a>
+            {{ 'based-on-x' | translate }} <a href="https://github.com/cronoh/nanovault" target="_blank" rel="noopener noreferrer">NanoVault</a>
           </div>
         </div>
 
